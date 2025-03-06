@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - Furniture Store</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="logo">
+        <a href="index.html">Wakili-Furniture<span>Store</span></a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="#">Living Room</a></li>
+          <li><a href="#">Bedroom</a></li>
+          <li><a href="#">Dining Room</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="cart">
+        <a href="#"><i class="fas fa-shopping-cart"></i> Cart (0)</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Shop Section -->
+  <section class="shop">
+    <div class="container">
+      <h2>Shop All Furniture</h2>
+      <div class="filters">
+        <select id="sort-by">
+          <option value="default">Sort by</option>
+          <option value="price-low-to-high">Price: Low to High</option>
+          <option value="price-high-to-low">Price: High to Low</option>
+          <option value="popularity">Popularity</option>
+        </select>
+        <select id="filter-by-category">
+          <option value="all">Filter by Category</option>
+          <option value="sofas">Sofas</option>
+          <option value="beds">Beds</option>
+          <option value="tables">Tables</option>
+          <option value="chairs">Chairs</option>
+        </select>
+      </div>
+      <div class="product" data-category="sofas" data-price="120000" data-popularity="4">
+        <img src="images/sofa.jpg" alt="Luxury Sofa">
+        <h3>Luxury Sofa</h3>
+        <p>KSh 120,000</p>
+        <div class="product-actions">
+          <button class="add-to-cart">Add to Cart</button>
+          <a href="product-details.html" class="view-details">View Details</a>
+        </div>
+      </div>
+      <div class="product" data-category="tables" data-price="85000" data-popularity="3">
+        <img src="images/Dining-set.png" alt="Modern Dining Table">
+        <h3>Modern Dining Table</h3>
+        <p>KSh 85,000</p>
+        <div class="product-actions">
+          <button class="add-to-cart">Add to Cart</button>
+          <a href="product-details.html" class="view-details">View Details</a>
+        </div>
+      </div>
+      <div class="product" data-category="beds" data-price="95000" data-popularity="5">
+        <img src="images/bed2.webp" alt="Comfortable Bed">
+        <h3>Comfortable Bed</h3>
+        <p>KSh 95,000</p>
+        <div class="product-actions">
+          <button class="add-to-cart">Add to Cart</button>
+          <a href="product-details.html" class="view-details">View Details</a>
+        </div>
+      </div>
+        <!-- Add more products here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="social-media">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+      </div>
+      <p>&copy; 2023 Furniture Store. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Filters -->
+  <script>
+    document.getElementById('sort-by').addEventListener('change', function() {
+      const sortBy = this.value;
+      sortProducts(sortBy);
+    });
+
+    document.getElementById('filter-by-category').addEventListener('change', function() {
+      const category = this.value;
+      filterProducts(category);
+    });
+
+    function sortProducts(sortBy) {
+      const productGrid = document.querySelector('.product-grid');
+      const products = Array.from(productGrid.querySelectorAll('.product'));
+
+      products.sort((a, b) => {
+        if (sortBy === 'price-low-to-high') {
+          return a.dataset.price - b.dataset.price;
+        } else if (sortBy === 'price-high-to-low') {
+          return b.dataset.price - a.dataset.price;
+        } else if (sortBy === 'popularity') {
+          return b.dataset.popularity - a.dataset.popularity;
+        } else {
+          return 0;
+        }
+      });
+
+      productGrid.innerHTML = '';
+      products.forEach(product => productGrid.appendChild(product));
+    }
+
+    function filterProducts(category) {
+      const products = document.querySelectorAll('.product');
+      products.forEach(product => {
+        if (category === 'all' || product.dataset.category === category) {
+          product.style.display = 'block';
+        } else {
+          product.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
